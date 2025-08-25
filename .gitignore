@@ -1,0 +1,65 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vspscc
+*.vssscc
+
+# Visual Studio cache
+.vs/
+*.vscode/
+
+# Visual Studio Code settings
+.vscode/*
+
+# Build artefacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.psmdcp
+.packages/
+project.lock.json
+artifacts/
+
+# Entity Framework
+Migrations/obj/
+*.mdf
+*.ldf
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.coverage
+*.coveragexml
+TestResults/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.sln.iml
+
+# Publish
+publish/
+*.pubxml
+*.publishproj
+
+# Others
+_ReSharper*/
+*.DotSettings.user
+.idea/
+*.DS_Store
