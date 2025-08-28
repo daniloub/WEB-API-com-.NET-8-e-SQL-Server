@@ -15,6 +15,7 @@ namespace WebApi_Video.Controllers
         {
             _autorService = autorService;
         }
+
         [HttpGet("ListarAutores")]
         public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ListarAutores()
         {
@@ -26,10 +27,21 @@ namespace WebApi_Video.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("BuscarAutorPorId/{id}")]
         public async Task<ActionResult<ResponseModel<AutorModel>>> BuscarAutorPorId(int id)
         {
             var result = await _autorService.BuscarAutorPorId(id);
+            if (!result.Status)
+            {
+                return NotFound(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("BuscarAutorPorIdLivro/{idLivro}")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> BuscarAutorPorIdLivro(int idLivro)
+        {
+            var result = await _autorService.BuscarAutorPorIdLivro(idLivro);
             if (!result.Status)
             {
                 return NotFound(result);

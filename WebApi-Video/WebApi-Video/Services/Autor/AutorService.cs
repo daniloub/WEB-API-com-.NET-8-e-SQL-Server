@@ -12,12 +12,12 @@ namespace WebApi_Video.Services.Autor
         {
             _dbContext = dbContext;
         }
-        
+
         public async Task<ResponseModel<AutorModel>> BuscarAutorPorId(int id)
         {
             ResponseModel<AutorModel> response = new ResponseModel<AutorModel>();
             var autor = await _dbContext.Autores.FirstOrDefaultAsync(x => x.Id == id);
-            if(autor == null)
+            if (autor == null)
             {
                 response.Mensagem = "Nenhum registro localizado";
                 response.Status = false;
@@ -30,14 +30,39 @@ namespace WebApi_Video.Services.Autor
             return response;
         }
 
-        public Task<ResponseModel<AutorModel>> BuscarAutorPorIdLivro(int idLivro)
+        public async Task<ResponseModel<AutorModel>> BuscarAutorPorIdLivro(int idLivro)
         {
-            throw new NotImplementedException();
+            ResponseModel<AutorModel> response = new ResponseModel<AutorModel>();
+            try
+            {
+                var autor = await _dbContext.Livros
+                    .Include(l => l.Autor)
+                    .Where(l => l.Id == idLivro)
+                    .Select(l => l.Autor)
+                    .FirstOrDefaultAsync();
+                if (autor == null) 
+                {
+                    response.Mensagem = "Livro não encontrado";
+                    response.Status = false;
+                    return response;
+                }
+                response.Dados = autor;
+                response.Mensagem = "Autor encontrado com sucesso.";
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                response.Mensagem = $"Erro ao buscar autor por Id: {ex.Message}";
+                response.Status = false;
+                return response;
+
+            }
         }
 
         public async Task<ResponseModel<List<AutorModel>>> ListarAutores()
         {
-           ResponseModel<List<AutorModel>> response = new ResponseModel<List<AutorModel>>();
+            ResponseModel<List<AutorModel>> response = new ResponseModel<List<AutorModel>>();
             try
             {
                 var autores = await _dbContext.Autores.ToListAsync();
