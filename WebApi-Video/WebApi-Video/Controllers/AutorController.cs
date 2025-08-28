@@ -60,5 +60,16 @@ namespace WebApi_Video.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost("ExcluirAutor/{id}")]
+        public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ExcluirAutor(int id)
+        {
+            var response = await _autorService.ExcluirAutor(id);
+            if (!response.Status)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }

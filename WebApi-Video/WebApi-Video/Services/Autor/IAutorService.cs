@@ -10,5 +10,6 @@ namespace WebApi_Video.Services.Autor
         Task<ResponseModel<AutorModel>> BuscarAutorPorId(int id);
         Task<ResponseModel<AutorModel>> BuscarAutorPorIdLivro(int idLivro);
         Task<ResponseModel<List<AutorModel>>> CriarAutor(AutorDTO autorDTO);
+        Task<ResponseModel<List<AutorModel>>> ExcluirAutor(int id);
     }
 }
