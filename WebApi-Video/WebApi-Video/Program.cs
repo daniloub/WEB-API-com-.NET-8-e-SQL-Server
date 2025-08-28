@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi_Video.Data;
 using WebApi_Video.Services.Autor;
+using WebApi_Video.Services.Livros;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAutorService, AutorService>();
+builder.Services.AddScoped<ILivroService, LivroService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

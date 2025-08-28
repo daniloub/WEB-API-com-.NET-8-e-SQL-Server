@@ -58,6 +58,7 @@ namespace WebApi_Video.Services.Autor
                 response.Status = false;
                 return response;
 
+
             }
         }
 
@@ -72,17 +73,85 @@ namespace WebApi_Video.Services.Autor
                     Nome = autorDTO.Nome,
                     Sobrenome = autorDTO.Sobrenome
                 };
-
+                
                 _dbContext.Autores.Add(autor);
                 await _dbContext.SaveChangesAsync(); 
 
-                return await ListarAutores(); 
+                var autores = await ListarAutores();
+
+                response.Dados = autores.Dados;
+                response.Mensagem = "Autor criado com sucesso.";
+                response.Status = true;
+
+                return response;  
             }
             catch (Exception ex)
             {
                 response.Mensagem = $"Erro ao criar autor: {ex.Message}";
                 response.Status = false;
                 return response;
+            }
+        }
+
+        public async Task<ResponseModel<AutorModel>> EditarAutor(int id, AutorDTO autorDTO)
+        {
+            ResponseModel<AutorModel> response = new ResponseModel<AutorModel>();
+            try
+            {
+                var autor = _dbContext.Autores.FirstOrDefault(x => x.Id == id);
+                if (autor == null)
+                {
+                    response.Mensagem = "Autor não encontrado.";
+                    response.Status = false;
+                    return response;
+                }
+                autor.Nome = autorDTO.Nome;
+                autor.Sobrenome = autorDTO.Sobrenome;
+                _dbContext.Autores.Update(autor);
+                await _dbContext.SaveChangesAsync();
+
+                response.Dados = autor;
+                response.Mensagem = "Autor editado com sucesso.";
+                response.Status = true;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Mensagem = $"Erro ao editar autor: {ex.Message}";
+                response.Status = false;
+                return response;
+            }
+        }
+
+        public async Task<ResponseModel<List<AutorModel>>> ExcluirAutor(int id)
+        {
+            ResponseModel<List<AutorModel>> response = new ResponseModel<List<AutorModel>>();
+
+            try
+            {
+                var autor = _dbContext.Autores.FirstOrDefault(x => x.Id == id);
+                if (autor == null)
+                {
+                    response.Mensagem = "Autor não encontrado.";
+                    response.Status = false;
+                    return response;
+                }
+
+                _dbContext.Autores.Remove(autor);
+                await _dbContext.SaveChangesAsync();
+
+                var autores = await ListarAutores();
+
+                response.Dados = autores.Dados;
+                response.Mensagem = "Autor removido com sucesso.";
+                response.Status = true;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 
