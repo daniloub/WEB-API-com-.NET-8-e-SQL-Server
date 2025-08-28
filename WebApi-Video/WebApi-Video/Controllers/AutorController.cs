@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_Video.Dtos;
+using WebApi_Video.Models;
+using WebApi_Video.Services.Autor;
 
 namespace WebApi_Video.Controllers
 {
@@ -7,5 +10,55 @@ namespace WebApi_Video.Controllers
     [ApiController]
     public class AutorController : ControllerBase
     {
+        private readonly IAutorService _autorService;
+
+        public AutorController(IAutorService autorService)
+        {
+            _autorService = autorService;
+        }
+
+        [HttpGet("ListarAutores")]
+        public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ListarAutores()
+        {
+            var response = await _autorService.ListarAutores();
+            if (!response.Status)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("BuscarAutorPorId/{id}")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> BuscarAutorPorId(int id)
+        {
+            var result = await _autorService.BuscarAutorPorId(id);
+            if (!result.Status)
+            {
+                return NotFound(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("BuscarAutorPorIdLivro/{idLivro}")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> BuscarAutorPorIdLivro(int idLivro)
+        {
+            var result = await _autorService.BuscarAutorPorIdLivro(idLivro);
+            if (!result.Status)
+            {
+                return NotFound(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("CriarAutor")]
+        public async Task<ActionResult<ResponseModel<List<AutorModel>>>> CriarAutor([FromBody] AutorDTO autorDTO)
+        {
+            var response = await _autorService.CriarAutor(autorDTO);
+            if (!response.Status)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }
