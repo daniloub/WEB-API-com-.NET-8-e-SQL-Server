@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using WebApi_Video.Data;
+using WebApi_Video.Dtos;
 using WebApi_Video.Models;
 
 namespace WebApi_Video.Services.Autor
@@ -40,7 +41,7 @@ namespace WebApi_Video.Services.Autor
                     .Where(l => l.Id == idLivro)
                     .Select(l => l.Autor)
                     .FirstOrDefaultAsync();
-                if (livro == null) 
+                if (livro == null)
                 {
                     response.Mensagem = "Livro não encontrado";
                     response.Status = false;
@@ -57,6 +58,31 @@ namespace WebApi_Video.Services.Autor
                 response.Status = false;
                 return response;
 
+            }
+        }
+
+        public async Task<ResponseModel<List<AutorModel>>> CriarAutor(AutorDTO autorDTO)
+        {
+            ResponseModel<List<AutorModel>> response = new ResponseModel<List<AutorModel>>();
+
+            try
+            {
+                var autor = new AutorModel()
+                {
+                    Nome = autorDTO.Nome,
+                    Sobrenome = autorDTO.Sobrenome
+                };
+
+                _dbContext.Autores.Add(autor);
+                await _dbContext.SaveChangesAsync(); 
+
+                return await ListarAutores(); 
+            }
+            catch (Exception ex)
+            {
+                response.Mensagem = $"Erro ao criar autor: {ex.Message}";
+                response.Status = false;
+                return response;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_Video.Dtos;
 using WebApi_Video.Models;
 using WebApi_Video.Services.Autor;
 
@@ -47,6 +48,17 @@ namespace WebApi_Video.Controllers
                 return NotFound(result);
             }
             return Ok(result);
+        }
+
+        [HttpPost("CriarAutor")]
+        public async Task<ActionResult<ResponseModel<List<AutorModel>>>> CriarAutor([FromBody] AutorDTO autorDTO)
+        {
+            var response = await _autorService.CriarAutor(autorDTO);
+            if (!response.Status)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
     }
 }
