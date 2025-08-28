@@ -6,7 +6,7 @@ using WebApi_Video.Services.Autor;
 
 namespace WebApi_Video.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AutorController : ControllerBase
     {
@@ -61,7 +61,18 @@ namespace WebApi_Video.Controllers
             return Ok(response);
         }
 
-        [HttpPost("ExcluirAutor/{id}")]
+        [HttpPut("EditarAutor/{id}")]
+        public async Task<ActionResult<ResponseModel<AutorModel>>> EditarAutor(int id, [FromBody] AutorDTO autorDTO)
+        {
+            var response = await _autorService.EditarAutor(id, autorDTO);
+            if (!response.Status)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("ExcluirAutor/{id}")]
         public async Task<ActionResult<ResponseModel<List<AutorModel>>>> ExcluirAutor(int id)
         {
             var response = await _autorService.ExcluirAutor(id);
@@ -71,5 +82,7 @@ namespace WebApi_Video.Controllers
             }
             return Ok(response);
         }
+
+        
     }
 }
