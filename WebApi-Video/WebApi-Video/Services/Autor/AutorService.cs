@@ -35,18 +35,18 @@ namespace WebApi_Video.Services.Autor
             ResponseModel<AutorModel> response = new ResponseModel<AutorModel>();
             try
             {
-                var autor = await _dbContext.Livros
+                var livro = await _dbContext.Livros
                     .Include(l => l.Autor)
                     .Where(l => l.Id == idLivro)
                     .Select(l => l.Autor)
                     .FirstOrDefaultAsync();
-                if (autor == null) 
+                if (livro == null) 
                 {
                     response.Mensagem = "Livro não encontrado";
                     response.Status = false;
                     return response;
                 }
-                response.Dados = autor;
+                response.Dados = livro;
                 response.Mensagem = "Autor encontrado com sucesso.";
                 return response;
 
