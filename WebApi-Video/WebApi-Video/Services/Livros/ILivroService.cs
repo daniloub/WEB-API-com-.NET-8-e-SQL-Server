@@ -1,7 +1,7 @@
-﻿using WebApi_Video.Dtos;
-using WebApi_Video.Models;
+﻿using WebApi.Dtos;
+using WebApi.Models;
 
-namespace WebApi_Video.Services.Livros
+namespace WebApi.Services.Livros
 {
     public interface ILivroService
     {

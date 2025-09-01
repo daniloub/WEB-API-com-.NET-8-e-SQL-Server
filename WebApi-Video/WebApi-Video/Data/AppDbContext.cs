@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApi_Video.Models;
+using WebApi.Models;
 
-namespace WebApi_Video.Data
+namespace WebApi.Data
 {
     public class AppDbContext : DbContext
     {

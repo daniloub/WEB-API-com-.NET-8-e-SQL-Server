@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi_Video.Data;
-using WebApi_Video.Services.Autor;
-using WebApi_Video.Services.Livros;
+using WebApi.Data;
+using WebApi.Services.Autor;
+using WebApi.Services.Livros;
+using WebApi.Services.Autor;
 
 var builder = WebApplication.CreateBuilder(args);
 

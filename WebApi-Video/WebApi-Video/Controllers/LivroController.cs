@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi_Video.Dtos;
-using WebApi_Video.Services.Livros;
+using WebApi.Dtos;
+using WebApi.Services.Livros;
 
-namespace WebApi_Video.Controllers
+namespace WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApi_Video.Models
+namespace WebApi.Models
 {
     public class LivroModel
     {
