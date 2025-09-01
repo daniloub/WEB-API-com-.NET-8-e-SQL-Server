@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApi_Video.Data;
-using WebApi_Video.Dtos;
-using WebApi_Video.Models;
+using WebApi.Data;
+using WebApi.Dtos;
+using WebApi.Models;
 
-namespace WebApi_Video.Services.Livros
+namespace WebApi.Services.Livros
 {
     public class LivroService : ILivroService
     {

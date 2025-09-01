@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace WebApi_Video.Models
+namespace WebApi.Models
 {
     public class AutorModel
     {

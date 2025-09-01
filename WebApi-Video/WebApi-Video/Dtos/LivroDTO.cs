@@ -1,4 +1,4 @@
-﻿namespace WebApi_Video.Dtos
+﻿namespace WebApi.Dtos
 {
     public class LivroDTO
     {

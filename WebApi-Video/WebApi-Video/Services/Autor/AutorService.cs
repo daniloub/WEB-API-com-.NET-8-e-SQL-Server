@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using WebApi_Video.Data;
-using WebApi_Video.Dtos;
-using WebApi_Video.Models;
+using WebApi.Data;
+using WebApi.Dtos;
+using WebApi.Models;
+using WebApi.Services.Autor;
 
-namespace WebApi_Video.Services.Autor
+namespace WebApi.Services.Autor
 {
     public class AutorService : IAutorService
     {

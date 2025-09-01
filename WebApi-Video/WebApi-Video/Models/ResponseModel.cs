@@ -1,4 +1,4 @@
-﻿namespace WebApi_Video.Models
+﻿namespace WebApi.Models
 {
     public class ResponseModel<T>
     {
