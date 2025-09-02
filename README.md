@@ -41,7 +41,7 @@ O projeto segue uma **arquitetura em camadas** bem definida, preparada para evol
 ├── 📁 Application/          # Camada de Aplicação (preparada para futuro)
 ├── 📁 Domain/              # Camada de Domínio (preparada para futuro)
 ├── 📁 Infrastructure/      # Camada de Infraestrutura (preparada para futuro)
-└── 📁 WebApi/        # Camada de Apresentação (API)
+└── 📁 Web/        # Camada de Apresentação (API)
     ├── 📁 Controllers/     # Controladores da API REST
     ├── 📁 Services/        # Serviços de negócio
     ├── 📁 Models/          # Modelos de domínio
