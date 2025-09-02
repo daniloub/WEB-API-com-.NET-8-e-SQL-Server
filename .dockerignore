@@ -1,0 +1,15 @@
+**/bin/
+**/obj/
+*.user
+*.swp
+.vscode/
+.idea/
+.git/
+.gitignore
+Dockerfile*
+**/Dockerfile*
+**/.docker/
+Thumbs.db
+.DS_Store
+*.log
+

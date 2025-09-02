@@ -206,6 +206,31 @@ dotnet run
 
 ---
 
+## 🐳 Executar com Docker e Docker Compose
+
+### Pré-requisitos
+- Docker Desktop instalado e em execução
+
+### Subir a API e o SQL Server
+```bash
+docker compose up -d --build
+```
+
+### Endpoints
+- API: `http://localhost:8080`
+- Swagger: `http://localhost:8080/swagger`
+- Health: `http://localhost:8080/health`
+
+### Variáveis de ambiente importantes
+- `ConnectionStrings__DefaultConnection` (definida no compose para apontar ao serviço `sqlserver`)
+
+### Parar e remover containers
+```bash
+docker compose down -v
+```
+
+---
+
 ## 🧪 Testando a API
 
 ### 📝 **Exemplo de Criação de Autor**
