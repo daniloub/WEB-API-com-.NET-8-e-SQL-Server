@@ -34,9 +34,18 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Database Context
+// Database Context with transient error resiliency
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null);
+            sqlOptions.CommandTimeout(30);
+        }));
 
 // Repositories
 builder.Services.AddScoped<IAutorRepository, AutorRepository>();
@@ -58,6 +67,29 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Ensure database exists and apply migrations (container startup)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var db = services.GetRequiredService<AppDbContext>();
+        var hasMigrations = db.Database.GetMigrations().Any();
+        if (hasMigrations)
+        {
+            db.Database.Migrate();
+        }
+        else
+        {
+            db.Database.EnsureCreated();
+        }
+    }
+    catch (Exception)
+    {
+        // Swallow to avoid container crash loop; logs will show details if any
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
