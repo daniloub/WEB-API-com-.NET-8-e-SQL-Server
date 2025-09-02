@@ -102,7 +102,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// HTTPS redirection disabled in container (HTTP-only on port 8080)
+// app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
